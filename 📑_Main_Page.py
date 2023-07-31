@@ -1,4 +1,3 @@
-
 import pandas as pd
 import inflection
 import plotly.express as px
@@ -105,6 +104,7 @@ def clean_data (df1):
 def convert_df(df):   
     return df.to_csv().encode('utf-8')
 
+
 def restaurants_map(df1):
     df_aux = df1[['restaurant_id', 'restaurant_name', 'average_cost_for_two', 'cuisines', 'aggregate_rating', 'latitude', 'longitude', 'rating_color']]
     map_ = folium.Map(location=[30,30], zoom_start=1.5)
@@ -144,7 +144,13 @@ df1 = clean_data(df)
 #*========================================================================================
 
 st.set_page_config(layout="wide")
+make_map_responsive= """
+<style>
+    [title~="st.iframe"] { width: 100%}
+</style>
+"""
 
+st.markdown(make_map_responsive, unsafe_allow_html=True)
 ##-----------------------------------------
 # Streamlit Sidebar
 ##-----------------------------------------
@@ -217,5 +223,7 @@ with st.container():
 with st.container():
     # Folium Map
     restaurants_map(df1)
+    
+
     
 
