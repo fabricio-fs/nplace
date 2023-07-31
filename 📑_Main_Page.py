@@ -144,39 +144,6 @@ df1 = clean_data(df)
 
 st.set_page_config(layout="wide")
 
-st.markdown(
-    """
-    <style>
-        div[data-testid="column"]:nth-of-type(1) [data-testid=stVerticalBlock]
-        {            
-            gap: 0rem;            
-            text-align: center;
-            
-        } 
-
-        div[data-testid="column"]:nth-of-type(2) [data-testid=stVerticalBlock]
-        {
-            gap: 0rem;            
-            text-align: center;
-        }
-        div[data-testid="column"]:nth-of-type(3) [data-testid=stVerticalBlock]
-        {
-            gap: 0rem;            
-            text-align: center;
-        }
-        div[data-testid="column"]:nth-of-type(4) [data-testid=stVerticalBlock]
-        {
-            gap: 0rem;            
-            text-align: center;
-        }
-        div[data-testid="column"]:nth-of-type(5) [data-testid=stVerticalBlock]
-        {
-            gap: 0rem;            
-            text-align: center;
-        }    
-    </style>
-    """,unsafe_allow_html=True
-)
 ##-----------------------------------------
 # Streamlit Sidebar
 ##-----------------------------------------
@@ -226,29 +193,28 @@ with st.container():
     # Static metrics
     cols = st.columns(5)   
     with cols[0]:
-        st.markdown("Registered Restaurants")
-        st.metric(label='-', label_visibility="collapsed", value='{0:,}'.format(len(df_static)).replace(",","."))
+
+        st.metric(label='Registered Restaurants', value='{0:,}'.format(len(df_static)).replace(",","."))
         
     with cols[1]:
-        st.markdown("Registered Countries")
-        st.metric(label='-', label_visibility="collapsed", value=df_static['country_name'].nunique())
+
+        st.metric(label='Registered Countries', value=df_static['country_name'].nunique())
         
     with cols[2]:
-        st.markdown("Registered Cities")
-        st.metric(label="-", label_visibility="collapsed", value=df_static['city'].nunique())
+
+        st.metric(label="Registered Cities", value=df_static['city'].nunique())
         
     with cols[3]:
-        st.markdown("Total Ratings")
-        st.metric(label="-", label_visibility="collapsed", value='{0:,}'.format(df_static['votes'].sum()).replace(",","."))
+
+        st.metric(label="Total Ratings", value='{0:,}'.format(df_static['votes'].sum()).replace(",","."))
         
     with cols[4]:
-        st.markdown("Cuisine types")
-        st.metric(label="-", label_visibility="collapsed", value='{0:,}'.format(df_static['cuisines'].nunique()).replace(",","."))
+
+        st.metric(label="Cuisine types", value='{0:,}'.format(df_static['cuisines'].nunique()).replace(",","."))
 
 
 with st.container():
     # Folium Map
-    cols = st.columns(1)
-    with cols[0]:
-        restaurants_map(df1)
+    restaurants_map(df1)
     
+
