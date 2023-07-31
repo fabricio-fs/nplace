@@ -118,10 +118,9 @@ image = Image.open('orange_logo.png')
 #image_path = "/home/fabriciofs/repos/ftc/ftc_project/images/orange_logo.png"          
 
 with st.sidebar:
-    col1, col2 = st.columns([1,2])
-    col1.image(image, width=70)
-    col2.markdown('# Nplace')
+    cols = st.columns([1,2,3])
 
+    cols[1].image(image, width=100)
 
     st.sidebar.markdown('## Filters')                 
 
