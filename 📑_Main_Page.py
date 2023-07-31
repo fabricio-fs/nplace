@@ -1,4 +1,3 @@
-
 import pandas as pd
 import inflection
 import plotly.express as px
@@ -138,11 +137,46 @@ df = pd.read_csv('zomato.csv')
 
 df1 = clean_data(df)
 
+
 #*========================================================================================
 #* Streamlit Design
 #*========================================================================================
 
 st.set_page_config(layout="wide")
+
+st.markdown(
+    """
+    <style>
+        div[data-testid="column"]:nth-of-type(1) [data-testid=stVerticalBlock]
+        {            
+            gap: 0rem;            
+            text-align: center;
+            
+        } 
+
+        div[data-testid="column"]:nth-of-type(2) [data-testid=stVerticalBlock]
+        {
+            gap: 0rem;            
+            text-align: center;
+        }
+        div[data-testid="column"]:nth-of-type(3) [data-testid=stVerticalBlock]
+        {
+            gap: 0rem;            
+            text-align: center;
+        }
+        div[data-testid="column"]:nth-of-type(4) [data-testid=stVerticalBlock]
+        {
+            gap: 0rem;            
+            text-align: center;
+        }
+        div[data-testid="column"]:nth-of-type(5) [data-testid=stVerticalBlock]
+        {
+            gap: 0rem;            
+            text-align: center;
+        }    
+    </style>
+    """,unsafe_allow_html=True
+)
 ##-----------------------------------------
 # Streamlit Sidebar
 ##-----------------------------------------
@@ -150,9 +184,10 @@ image = Image.open('orange_logo.png')
 #image_path = "/home/fabriciofs/repos/ftc/ftc_project/images/orange_logo.png"          
 
 with st.sidebar:
-    col1, col2 = st.columns([1,2])
-    col1.image(image, width=70)
-    col2.markdown('# Nplace')
+    cols = st.columns([1,2,3])
+
+    cols[1].image(image, width=100)
+
 
 
     st.sidebar.markdown('## Filters')                 
@@ -187,18 +222,33 @@ with st.container():
     st.markdown('### Here you will find interactive dashboards with the main information about the marketplace')
     st.markdown('')
     
-    
-    
 with st.container():
     # Static metrics
-    cols = st.columns(5)    
-    cols[0].metric(label="Registered Restaurants", value='{0:,}'.format(len(df_static)).replace(",","."))
-    cols[1].metric(label="Registered Countries", value=df_static['country_name'].nunique())
-    cols[2].metric(label="Registered Cities", value=df_static['city'].nunique())
-    cols[3].metric(label="Total Ratings", value='{0:,}'.format(df_static['votes'].sum()).replace(",","."))
-    cols[4].metric(label="Cuisine types", value='{0:,}'.format(df_static['cuisines'].nunique()).replace(",","."))
+    cols = st.columns(5)   
+    with cols[0]:
+        st.markdown("Registered Restaurants")
+        st.metric(label='-', label_visibility="collapsed", value='{0:,}'.format(len(df_static)).replace(",","."))
+        
+    with cols[1]:
+        st.markdown("Registered Countries")
+        st.metric(label='-', label_visibility="collapsed", value=df_static['country_name'].nunique())
+        
+    with cols[2]:
+        st.markdown("Registered Cities")
+        st.metric(label="-", label_visibility="collapsed", value=df_static['city'].nunique())
+        
+    with cols[3]:
+        st.markdown("Total Ratings")
+        st.metric(label="-", label_visibility="collapsed", value='{0:,}'.format(df_static['votes'].sum()).replace(",","."))
+        
+    with cols[4]:
+        st.markdown("Cuisine types")
+        st.metric(label="-", label_visibility="collapsed", value='{0:,}'.format(df_static['cuisines'].nunique()).replace(",","."))
 
 
 with st.container():
     # Folium Map
-    restaurants_map(df1)
+    cols = st.columns(1)
+    with cols[0]:
+        restaurants_map(df1)
+    
