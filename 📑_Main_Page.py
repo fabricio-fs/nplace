@@ -1,3 +1,4 @@
+
 import pandas as pd
 import inflection
 import plotly.express as px
@@ -106,7 +107,7 @@ def convert_df(df):
 
 def restaurants_map(df1):
     df_aux = df1[['restaurant_id', 'restaurant_name', 'average_cost_for_two', 'cuisines', 'aggregate_rating', 'latitude', 'longitude', 'rating_color']]
-    map_ = folium.Map(location=[30,30], zoom_start=1.5)
+    map_ = folium.Map(location=[30,30], zoom_start=1)
     marker_cluster = MarkerCluster().add_to(map_)
     for index, location_info in df_aux.iterrows(): 
         restaurant_name = df1['restaurant_name'][index]
@@ -126,7 +127,7 @@ def restaurants_map(df1):
                     location_info['longitude']],                
                     popup= folium.Popup(iframe),               
                     icon=folium.Icon(color=location_info['rating_color'], icon='cutlery')).add_to(marker_cluster)
-    return folium_static(map_, width=1024, height=600)
+    return folium_static(map_, width=800, height=600)
 
 #*========================================================================================
 #*========================================================================================
@@ -215,6 +216,7 @@ with st.container():
 
 with st.container():
     # Folium Map
-    restaurants_map(df1)
-    
+    cols = st.columns(5)
+    with cols[1]:
+        restaurants_map(df1)
 
