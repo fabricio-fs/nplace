@@ -107,7 +107,7 @@ def convert_df(df):
 
 def restaurants_map(df1):
     df_aux = df1[['restaurant_id', 'restaurant_name', 'average_cost_for_two', 'cuisines', 'aggregate_rating', 'latitude', 'longitude', 'rating_color']]
-    map_ = folium.Map(location=[30,30], zoom_start=1.5)
+    map_ = folium.Map(location=[30,30], zoom_start=1)
     marker_cluster = MarkerCluster().add_to(map_)
     for index, location_info in df_aux.iterrows(): 
         restaurant_name = df1['restaurant_name'][index]
